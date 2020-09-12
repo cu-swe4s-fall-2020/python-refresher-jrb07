@@ -1,5 +1,6 @@
 
-def get_column(file_name, query_column, query_value, result_column):
+def get_column(file_name, query_column, query_value, result_column = 1):
+    
     # Create a python list called res which will be populated with an result_column data
     res = []
     
@@ -14,6 +15,12 @@ def get_column(file_name, query_column, query_value, result_column):
         # Skip the header this is boiler-plate when reading files with headers
         if header is None:
             header = line,
+             # Check if the result_column is a string
+            if isinstance(result_column, str):
+                    # Split by ',' then rstrip is used to strip special characters like /n
+                    A = line.rstrip().split(',')
+                    # Assign the correct index of the result column string
+                    result_column = A.index(result_column)
             continue
             
         # Split by ',' then rstrip is used to strip special characters like /n
