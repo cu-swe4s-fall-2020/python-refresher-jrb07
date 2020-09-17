@@ -12,8 +12,8 @@ The following changes were made to this project:
     Commited the changes to the branch
     Updated print_cases.py to use get_column() and print the number of cases in Boulder county
     Commited changes to the branch
-    Improved get_column() to use a string argument for the result_column variable which always will default to 1
-    Updated print_cases.py to correctly use new get_column() functionality
+    Improved get_column() to use a keyword (named) argument for the result_column variable which always will default to 1
+    Updated print_cases.py to correctly use keyword during get_column() call
     Updated README.md to summarize changes
     Commited changes to the branch
     Pushed the branch to the remote repo
