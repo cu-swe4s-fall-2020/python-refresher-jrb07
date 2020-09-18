@@ -1,6 +1,9 @@
-
 """Contains useful functions for file parsing."""
 
+import array
+
+
+# TODO: Handle all exceptions gracefully.
 
 def get_column(file_name, query_column, query_value, result_column=1):
     """Opens a CSV file and retrieves the desired column data based on inputs
@@ -14,9 +17,16 @@ def get_column(file_name, query_column, query_value, result_column=1):
                 result_column = integer
                                     The index of the column to return
     """
-    results = []
+    results = array.array('i', [])
 
-    f = open(file_name, 'r')
+    try:
+        f = open(file_name, 'r')
+    except FileNotFoundError:
+        print(file_name + ' could not be found. Please try again.')
+        sys.exit(1)
+    except PermissionError:
+        print(file_name + ' could not be accessed. Please try again.')
+        sys.exit(1)
 
     header = None
 
