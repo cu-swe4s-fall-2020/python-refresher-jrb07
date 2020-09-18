@@ -1,9 +1,45 @@
 
+import argparse
 import my_utils as mu
 
-county='Boulder'
-county_column = 1
-cases_column = 4
-file_name = 'covid-19-data/us-counties.csv'
-cases = mu.get_column(file_name, county_column, county, result_column=4)
-print(cases)
+
+def main():
+    desc = 'Opens a file and extracts data from a specific column.'
+
+    parser = argparse.ArgumentParser(description=desc)
+
+    parser.add_argument('--file', dest='file_name',
+                        type=str,
+                        required=True,
+                        help='Name of the file to be opened by the script.')
+
+    parser.add_argument('--result_column', dest='result_column',
+                        type=int,
+                        default=4,
+                        help='Column of file to be returned by the script. \
+                        Defaults to 4.')
+
+    parser.add_argument('--county_column', dest='county_column',
+                        type=int,
+                        required=True,
+                        help='Column of file to be queried by the script.')
+
+    parser.add_argument('--county', dest='county',
+                        type=str,
+                        required=True,
+                        help='Name of county to retrieve data from.')
+
+    args = parser.parse_args()
+
+    print(get_cases(args.file_name,
+                    args.county_column,
+                    args.county,
+                    args.result_column))
+
+
+def get_cases(file_name, county_column, county, result_column=4):
+    return mu.get_column(file_name, county_column, county, result_column)
+
+
+if __name__ == '__main__':
+    main()
