@@ -1,34 +1,50 @@
+"""Contains useful functions for file parsing."""
 
-def get_column(file_name, query_column, query_value, result_column = 1):
-    
-    # Create a python list called res which will be populated with an result_column data
-    res = []
-    
-    # Open a file using the provided file name with the optional argument 'r' to open the file as read-only
-    f = open(file_name, 'r')
-    
-    # Skip the header this is boiler-plate when reading files with headers
+import array
+import sys
+
+
+def get_column(file_name, query_column, query_value, result_column=1):
+    """Opens a CSV file and retrieves the desired column data based on inputs
+    Inputs:
+                file_name = string
+                                    The name of the file to open
+                query_column = integer
+                                    The index of the column to query
+                query_value = string
+                                    The name of the value to query
+                result_column = integer
+                                    The index of the column to return
+    """
+    results = array.array('i', [])
+
+    try:
+        f = open(file_name, 'r')
+    except FileNotFoundError:
+        print(file_name + ' could not be found. Please try again.')
+        sys.exit(1)
+    except PermissionError:
+        print(file_name + ' could not be accessed. Please try again.')
+        sys.exit(1)
+
     header = None
-    
-    # Loop through each line in file f
+
     for line in f:
-        # Skip the header this is boiler-plate when reading files with headers
         if header is None:
             header = line,
-             # Check if the result_column is a string
-            if isinstance(result_column, str):
-                    # Split by ',' then rstrip is used to strip special characters like /n
-                    A = line.rstrip().split(',')
-                    # Assign the correct index of the result column string
-                    result_column = A.index(result_column)
             continue
-            
-        # Split by ',' then rstrip is used to strip special characters like /n
+
         A = line.rstrip().split(',')
-        
-        # Check if the query_column of the current line matches the query_value
+
         if A[query_column] == query_value:
-            # Append the result column data to the res list
-            res.append(A[result_column])
-            
-    return res
+            try:
+                results.append(int(A[result_column]))
+            except IndexError:
+                index = str(result_column)
+                print('result_column was assigned as '
+                      + str(result_column)
+                      + ' and is out of range. The range is 0-'
+                      + str(len(A)) + '.' + ' Please try again.')
+                sys.exit(1)
+
+    return results
