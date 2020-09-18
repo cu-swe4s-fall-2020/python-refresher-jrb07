@@ -1,3 +1,21 @@
+"""Uses argparse parameters to extract
+a defined column from a given .csv file
+
+Parameters:
+    file_name: string
+                    The path to the CSV file
+    county: string
+                    The name of the county to return data for
+    results_column: integer
+                    The zero-based index of the column to return
+    county_column: integer
+                    The index of the column with county names
+
+Returns:
+    cases: array of ints
+              Data extracted from the given CSV file
+
+"""
 
 import argparse
 import my_utils as mu
