@@ -3,8 +3,6 @@
 import array
 
 
-# TODO: Handle all exceptions gracefully.
-
 def get_column(file_name, query_column, query_value, result_column=1):
     """Opens a CSV file and retrieves the desired column data based on inputs
     Inputs:
@@ -42,6 +40,6 @@ def get_column(file_name, query_column, query_value, result_column=1):
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            results.append(A[result_column])
+            results.append(int(A[result_column]))
 
     return results
