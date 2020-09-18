@@ -10,4 +10,4 @@ The  example included in this project is a CSV data extracting script that works
 For example execute the command the following command in a terminal 
 ``` $ bash run.sh```
 
-The data for this project can be found at https://github.com/nytimes/covid-19-data.git
+The data for this project can be found at [NYT Data Repo](https://github.com/nytimes/covid-19-data.git)
