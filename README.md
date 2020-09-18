@@ -7,8 +7,7 @@ The  example included in this project is a CSV data extracting script that works
 
 **To use this project navigate to the main directory and execute the shell file run.sh**
 
-For example execute the command the following command in a terminal
-                                                                                        ''' $ bash run.sh ''' 
-
+For example execute the command the following command in a terminal 
+``` $ bash run.sh```
 
 The data for this project can be found at https://github.com/nytimes/covid-19-data.git
