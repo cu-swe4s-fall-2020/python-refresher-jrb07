@@ -1,6 +1,7 @@
 """Contains useful functions for file parsing."""
 
 import array
+import sys
 
 
 def get_column(file_name, query_column, query_value, result_column=1):
@@ -31,15 +32,19 @@ def get_column(file_name, query_column, query_value, result_column=1):
     for line in f:
         if header is None:
             header = line,
-            # Handle string passed as result_column to index
-            if isinstance(result_column, str):
-                A = line.rstrip().split(',')
-                result_column = A.index(result_column)
             continue
 
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            results.append(int(A[result_column]))
+            try:
+                results.append(int(A[result_column]))
+            except IndexError:
+                index = str(result_column)
+                print('result_column was assigned as '
+                      + str(result_column)
+                      + ' and is out of range. The range is 0-'
+                      + str(len(A)) + '.' + ' Please try again.')
+                sys.exit(1)
 
     return results
