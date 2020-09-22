@@ -5,8 +5,9 @@ import sys
 
 
 def get_column(file_name, query_column, query_value, result_column=1):
-    """Opens a CSV file and retrieves the desired column data based on inputs
-    Inputs:
+    """Opens a CSV file and retrieves the desired column data based on
+    the following parameters.
+    Parameters:
                 file_name = string
                                     The name of the file to open
                 query_column = integer
