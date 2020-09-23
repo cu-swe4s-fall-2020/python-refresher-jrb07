@@ -22,10 +22,12 @@ def get_column(file_name, query_column, query_value, result_column=1):
     try:
         f = open(file_name, 'r')
     except FileNotFoundError:
-        print(file_name + ' could not be found. Please try again.')
+        print('The file ' + file_name
+              + ' could not be found. Please try again.')
         sys.exit(1)
     except PermissionError:
-        print(file_name + ' could not be accessed. Please try again.')
+        print(file_name
+              + ' could not be accessed. Please try again.')
         sys.exit(1)
 
     header = None
@@ -33,6 +35,16 @@ def get_column(file_name, query_column, query_value, result_column=1):
     for line in f:
         if header is None:
             header = line,
+            A = line.rstrip().split(',')
+            if isinstance(result_column, str):
+                try:
+                    result_column = A.index(result_column)
+                except ValueError:
+                    print('result_column_str was assigned as ' + result_column
+                          + ' and is out of range. '
+                          + 'Available result columns are '
+                          + str(A))
+                    sys.exit(1)
             continue
 
         A = line.rstrip().split(',')
