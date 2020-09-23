@@ -20,17 +20,17 @@ The data for this project can be found at [NYT Data Repo](https://github.com/nyt
 Input parameters for print_cases.py can be found below or by running ```$ python print_cases.py -h```
 
 Parameters:
-    file_name: string
+-file_name: string
                     The path to the CSV file
-    county: string
+-county: string
                     The name of the county to return data for
-    results_column: integer
+-results_column: integer
                     The zero-based index of the column to return
-    results_column_str: string
+- results_column_str: string
                     The name of the column to return will default to None
-    county_column: integer
+-county_column: integer
                     The index of the column with county names
 
 Returns:
-    cases: array of ints
+-cases: array of ints
               Data extracted from the given CSV file
