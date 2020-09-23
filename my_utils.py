@@ -14,8 +14,8 @@ def get_column(file_name, query_column, query_value, result_column=1):
                                     The index of the column to query
                 query_value = string
                                     The name of the value to query
-                result_column = integer
-                                    The index of the column to return
+                result_column = integer or string
+                                    The index or name of the column to return
     """
     results = array.array('i', [])
 
