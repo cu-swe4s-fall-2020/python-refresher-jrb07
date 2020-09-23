@@ -58,11 +58,14 @@ def main():
 
     args = parser.parse_args()
 
+    print()
+    print('Results:')
     print(get_cases(args.file_name,
                     args.county_column,
                     args.county,
                     args.result_column_str,
                     args.result_column))
+    print()
 
 
 def get_cases(file_name, county_column, county,
