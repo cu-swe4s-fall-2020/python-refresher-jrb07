@@ -36,15 +36,15 @@ def main():
     parser.add_argument('--result_column', dest='result_column',
                         default=4,
                         type=int,
-                        help='Column of file to be returned by the script. \
-                        Defaults to 4 and must be an int use _str for strings.')
-    
+                        help='Column of file to be returned by the script.\
+                        Defaults to 4 and must be an int use _str for strings.'
+                        )
+
     parser.add_argument('--result_column_str', dest='result_column_str',
                         default=None,
                         type=str,
                         help='Column of file to be returned by the script. \
                         Defaults to None unless assigned as a string.')
-
 
     parser.add_argument('--county_column', dest='county_column',
                         type=int,
@@ -65,11 +65,14 @@ def main():
                     args.result_column))
 
 
-def get_cases(file_name, county_column, county, result_column_str=None, result_column=4):
+def get_cases(file_name, county_column, county,
+              result_column_str=None, result_column=4):
     if result_column_str is None:
-        return mu.get_column(file_name, county_column, county, result_column)
+        return mu.get_column(file_name, county_column, county,
+                             result_column)
     else:
-        return mu.get_column(file_name, county_column, county, result_column_str)
+        return mu.get_column(file_name, county_column, county,
+                             result_column_str)
 
 
 if __name__ == '__main__':
