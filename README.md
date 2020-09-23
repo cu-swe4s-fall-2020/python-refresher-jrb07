@@ -21,22 +21,23 @@ Input parameters for print_cases.py can be found below or by running ```$ python
 
 Inputs
 1. file_name 
--string 
---The path to the CSV file
+    - string 
+        - The path to the CSV file
 2. county
--string 
---The name of the county to return data for
+    - string 
+        - The name of the county to return data for
 3. results_column
--integer 
---The zero-based index of the column to return
+    - integer 
+        - The zero-based index of the column to return
 4. results_column_str
--string 
---The name of the column to return will default to None
+    - string 
+        - The name of the column to return will default to None
 5. county_column
--integer 
---The index of the column with county names
+    - integer 
+        - The index of the column with county names
+
 
 Returns
 1. cases
--array of ints 
---Data extracted from the given CSV file
+    - array of ints 
+        - Data extracted from the given CSV file
