@@ -8,6 +8,8 @@ Parameters:
                     The name of the county to return data for
     results_column: integer
                     The zero-based index of the column to return
+    results_column_str: string
+                    The name of the column to return will default to None
     county_column: integer
                     The index of the column with county names
 
