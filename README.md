@@ -27,12 +27,9 @@ Inputs
     - string 
         - The name of the county to return data for
 3. results_column
-    - integer 
-        - The zero-based index of the column to return
-4. results_column_str
-    - string 
-        - The name of the column to return will default to None
-5. county_column
+    - integer or string
+        - The zero-based index or the name of the column to return
+4. county_column
     - integer 
         - The index of the column with county names
 
