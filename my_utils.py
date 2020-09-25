@@ -57,7 +57,7 @@ def get_column(file_name, query_column, query_value, result_column=1):
                 print('result_column was assigned as '
                       + str(result_column)
                       + ' and is out of range. The range is 0-'
-                      + str(len(A)) + '.' + ' Please try again.')
+                      + str(len(A)-1) + '.' + ' Please try again.')
                 sys.exit(1)
 
     return results
