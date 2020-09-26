@@ -6,7 +6,7 @@ Parameters:
                     The path to the CSV file
     county: string
                     The name of the county to return data for
-    results_column: integer
+    results_column: integer or string
                     The zero-based index or name of the column to return
     county_column: integer
                     The index of the column with county names
