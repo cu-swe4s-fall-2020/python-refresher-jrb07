@@ -10,9 +10,14 @@ Parameters:
                     The zero-based index or name of the column to return
     county_column: integer
                     The index of the column with county names
-
+    return_daily_increment: boolean
+                    Decides whether results are returned as daily increments.
+    return_running_avg: boolean
+                    Decides whether to return running averages from results
+     running_avg_window_size: integer
+                    Determines the window size for the running average
 Returns:
-    cases: array of ints
+    results: array
               Data extracted from the given CSV file
 
 """
@@ -47,16 +52,57 @@ def main():
                         required=True,
                         help='Name of county to retrieve data from.')
 
-    args = parser.parse_args()
+    parser.add_argument('--return_daily_increment', dest='return_daily_increment',
+                        type=bool,
+                        default=False,
+                        help='Decides whether results are returned as daily increments.')
 
+    parser.add_argument('--return_running_average', dest='return_running_average',
+                        type=bool,
+                        default=False,
+                        help='Decides whether to return running averages from results.')
+
+    parser.add_argument('--running_avg_window_size', dest='running_avg_window_size',
+                        type=int,
+                        default=5,
+                        help='Determines the window size for the running average.')
+
+    args = parser.parse_args()
+    
     print()
     print('Results:')
-    print(get_cases(args.file_name,
+
+    if args.return_daily_increment is True:
+        results = get_daily_count(args.file_name,
                     args.county_column,
                     args.county,
-                    args.result_column))
+                    args.result_column)
+    else:
+        results = get_cases(args.file_name,
+                        args.county_column,
+                        args.county,
+                        args.result_column)
+    if args.return_running_average is True:
+        results = running_average(results,
+                                  window_size=args.running_avg_window_size)
+
+    for result in results:
+        print(result)
+
+    print()
     print()
 
+
+def running_average(data, window_size):
+    return mu.running_average(data, window_size)
+
+def get_daily_count(file_name, county_column, county, result_column=4):
+    try:
+        result_column = int(result_column)
+    except ValueError:
+        pass
+    return mu.get_daily_count(file_name, county_column, county,
+                         result_column)
 
 def get_cases(file_name, county_column, county, result_column=4):
     try:
