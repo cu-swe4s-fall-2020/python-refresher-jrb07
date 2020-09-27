@@ -66,6 +66,18 @@ def get_column(file_name, query_column, query_value, result_column=1):
 def get_daily_count(query_column, query_value,
                     result_column=1,
                     file_name='covid-19-data/us-counties.csv'):
+"""Opens a CSV file and retrieves the desired column data per day based on
+    the following parameters.
+    Parameters:
+                file_name = string
+                                    The name of the file to open
+                query_column = integer
+                                    The index of the column to query
+                query_value = string
+                                    The name of the value to query
+                result_column = integer or string
+                                    The index or name of the column to return
+    """
     results = []
     daily_cases = []
     daily_cases = get_column(file_name, query_column,
