@@ -61,3 +61,32 @@ def get_column(file_name, query_column, query_value, result_column=1):
                 sys.exit(1)
 
     return results
+
+
+def get_daily_count(query_column, query_value,
+                    result_column=1,
+                    file_name='covid-19-data/us-counties.csv'):
+    results = []
+    daily_cases = []
+    daily_cases = get_column(file_name, query_column,
+                             query_value, result_column)
+    last_case = daily_cases[0]
+
+    for case in daily_cases:
+        daily_case_count = case - last_case
+        results.append(daily_case_count)
+
+    return results
+
+
+def running_average(data, window_size=5):
+    results = []
+    i = 0
+    average = 0
+    for x in data:
+        i = i + 1
+        average = average + x/i
+        if i >= window_size:
+            results.append(average)
+
+    return results
