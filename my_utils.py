@@ -63,10 +63,11 @@ def get_column(file_name, query_column, query_value, result_column=1):
     return results
 
 
-def get_daily_count(query_column, query_value,
-                    result_column=1,
-                    file_name='covid-19-data/us-counties.csv'):
-"""Opens a CSV file and retrieves the desired column data per day based on
+def get_daily_count(file_name,
+                    query_column,
+                    query_value,
+                    result_column=1):
+    """Opens a CSV file and retrieves the desired column data per day based on
     the following parameters.
     Parameters:
                 file_name = string
@@ -98,7 +99,9 @@ def running_average(data, window_size=5):
     for x in data:
         i = i + 1
         average = average + x/i
-        if i >= window_size:
+        if i == window_size:
             results.append(average)
+            i = 0
+            average = 0
 
     return results
