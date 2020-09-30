@@ -92,6 +92,7 @@ def running_average(data, window_size=5):
 
     return results, window_size
 
+
 def handle_result_column(result_column, line):
     A = line.rstrip().split(',')
     if isinstance(result_column, str):
