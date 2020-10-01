@@ -1,18 +1,24 @@
-"""Uses argparse parameters to extract
-a defined column from a given .csv file
+"""
+Uses user defined parameters to extract
+and return data from .csv files
 
 Parameters:
     file_name: string
                     The path to the CSV file
     county: string
                     The name of the county to return data for
-    results_column: integer
-                    The zero-based index of the column to return
+    result_column: integer or string
+                    The zero-based index or name of the column to return
     county_column: integer
                     The index of the column with county names
-
+    return_daily_increment: boolean
+                    Decides whether results are returned as daily increments.
+    return_running_avg: boolean
+                    Decides whether to return running averages from results
+     running_avg_window_size: integer
+                    Determines the window size for the running average
 Returns:
-    cases: array of ints
+    results: array
               Data extracted from the given CSV file
 
 """
@@ -33,16 +39,9 @@ def main():
 
     parser.add_argument('--result_column', dest='result_column',
                         default=4,
-                        type=int,
-                        help='Column of file to be returned by the script. \
-                        Defaults to 4 and must be an int use _str for strings.')
-    
-    parser.add_argument('--result_column_str', dest='result_column_str',
-                        default=None,
-                        type=str,
-                        help='Column of file to be returned by the script. \
-                        Defaults to None unless assigned as a string.')
-
+                        help='Column of file to be returned by the script.\
+                        Defaults to 4 and can be an int or a string name.'
+                        )
 
     parser.add_argument('--county_column', dest='county_column',
                         type=int,
@@ -54,20 +53,70 @@ def main():
                         required=True,
                         help='Name of county to retrieve data from.')
 
+    parser.add_argument('--return_daily_increment',
+                        dest='return_daily_increment',
+                        type=bool,
+                        default=False,
+                        help='Decides whether results\
+                        are returned as daily increments.')
+
+    parser.add_argument('--return_running_average',
+                        dest='return_running_average',
+                        type=bool,
+                        default=False,
+                        help='Decides whether to return\
+                        running averages from results.')
+
+    parser.add_argument('--running_avg_window_size',
+                        dest='running_avg_window_size',
+                        type=int,
+                        default=5,
+                        help='Determines the window\
+                        size for the running average.')
+
     args = parser.parse_args()
 
-    print(get_cases(args.file_name,
-                    args.county_column,
-                    args.county,
-                    args.result_column_str,
-                    args.result_column))
-
-
-def get_cases(file_name, county_column, county, result_column_str=None, result_column=4):
-    if result_column_str is None:
-        return mu.get_column(file_name, county_column, county, result_column)
+    print()
+    print('Results:')
+    if args.return_daily_increment is True:
+        results = get_daily_count(args.file_name,
+                                  args.county_column,
+                                  args.county,
+                                  args.result_column)
     else:
-        return mu.get_column(file_name, county_column, county, result_column_str)
+        results = get_cases(args.file_name,
+                            args.county_column,
+                            args.county,
+                            args.result_column)
+    if args.return_running_average is True:
+        results, _ = running_average(results,
+                                     window_size=args.running_avg_window_size)
+    for result in results:
+        print(result)
+    print()
+    print()
+
+
+def running_average(data, window_size):
+    return mu.running_average(data, window_size)
+
+
+def get_daily_count(file_name, county_column, county, result_column=4):
+    try:
+        result_column = int(result_column)
+    except ValueError:
+        pass
+    return mu.get_daily_count(get_cases(file_name, county_column, county,
+                              result_column))
+
+
+def get_cases(file_name, county_column, county, result_column=4):
+    try:
+        result_column = int(result_column)
+    except ValueError:
+        pass
+    return mu.get_column(file_name, county_column, county,
+                         result_column)
 
 
 if __name__ == '__main__':
