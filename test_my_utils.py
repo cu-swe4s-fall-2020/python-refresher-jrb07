@@ -4,12 +4,14 @@ import numpy as np
 import unittest
 import random
 
+
 # TODO: Implement randomness
 class TestMain(unittest.TestCase):
 
     def test_get_column(self):
         test_results = None
-        test_results = mu.get_column('covid-19-data/us-counties.csv', 1, 'Boulder', 4)
+        test_results = mu.get_column('covid-19-data/us-counties.csv',
+                                     1, 'Boulder', 4)
         self.assertIsNotNone(test_results)
 
     def test_get_column_error_mode(self):
@@ -24,7 +26,8 @@ class TestMain(unittest.TestCase):
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
-            mu.get_daily_count(mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4))
+            mu.get_daily_count(mu.get_column('covid-19-data/us-counties.cs',
+                                             1, 'Boulder', 4))
         self.assertEqual(cm.exception.code, 1)
 
     def test_get_running_average(self):
@@ -44,11 +47,12 @@ class TestMain(unittest.TestCase):
                 x = random.randint(0, 10000)
                 arr.append(x)
             for k in range(100):
-                window = random.randint(1,100)
+                window = random.randint(1, 100)
                 test_data, _ = mu.running_average(arr, window)
                 for m in range(int(100/window)-1):
                     expected_result = np.mean(arr[m:m + window])
                     self.assertEqual(test_data[m], expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()
