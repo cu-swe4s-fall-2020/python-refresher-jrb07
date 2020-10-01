@@ -1,5 +1,6 @@
-"""Uses argparse parameters to extract
-a defined column from a given .csv file
+"""
+Uses user defined parameters to extract
+and return data from .csv files
 
 Parameters:
     file_name: string
@@ -77,7 +78,6 @@ def main():
 
     print()
     print('Results:')
-
     if args.return_daily_increment is True:
         results = get_daily_count(args.file_name,
                                   args.county_column,
@@ -89,12 +89,10 @@ def main():
                             args.county,
                             args.result_column)
     if args.return_running_average is True:
-        results = running_average(results,
-                                  window_size=args.running_avg_window_size)
-
+        results, _ = running_average(results,
+                                     window_size=args.running_avg_window_size)
     for result in results:
         print(result)
-
     print()
     print()
 
@@ -108,8 +106,8 @@ def get_daily_count(file_name, county_column, county, result_column=4):
         result_column = int(result_column)
     except ValueError:
         pass
-    return mu.get_daily_count(file_name, county_column, county,
-                              result_column)
+    return mu.get_daily_count(get_cases(file_name, county_column, county,
+                              result_column))
 
 
 def get_cases(file_name, county_column, county, result_column=4):
