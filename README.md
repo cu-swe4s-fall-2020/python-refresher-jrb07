@@ -32,6 +32,7 @@ Inputs
 4. county_column
     - integer 
         - The index of the column with county names
+5.
 
 
 Returns
