@@ -16,7 +16,10 @@ class TestMain(unittest.TestCase):
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
-            mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4)
+            try:
+                mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4)
+            except:
+                pass
         self.assertEqual(cm.exception.code, 1)
 
     def test_get_daily_count(self):
@@ -26,8 +29,11 @@ class TestMain(unittest.TestCase):
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
-            mu.get_daily_count(mu.get_column('covid-19-data/us-counties.cs',
-                                             1, 'Boulder', 4))
+            try:
+                mu.get_daily_count(mu.get_column('covid-19-data/us-counties.cs',
+                                                 1, 'Boulder', 4))
+            except:
+                pass
         self.assertEqual(cm.exception.code, 1)
 
     def test_get_running_average(self):
