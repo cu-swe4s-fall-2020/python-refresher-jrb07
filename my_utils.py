@@ -47,12 +47,12 @@ def open_file(file_name):
     try:
         f = open(file_name, 'r')
     except FileNotFoundError:
-                print('The file ' + file_name
-                      + ' could not be found. Please try again.')
+        print('The file ' + file_name
+              + ' could not be found. Please try again.')
         sys.exit(1)
     except PermissionError:
-                print(file_name
-                      + ' could not be accessed. Please try again.')
+        print(file_name
+              + ' could not be accessed. Please try again.')
         sys.exit(2)
 
     return f
@@ -77,13 +77,13 @@ def running_average(data, window_size=5):
     results = []
     average = 0
     if data is None:
-                print('No data passed to running_average')
+        print('No data passed to running_average')
         sys.exit(3)
     try:
         data[window_size]
     except IndexError:
-                print('Updating window_size from ' + str(window_size) +
-                      ' to ' + str(len(data)))
+        print('Updating window_size from ' + str(window_size) +
+              ' to ' + str(len(data)))
         window_size = len(data)
         return np.mean(data), window_size
 
