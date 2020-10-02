@@ -32,10 +32,18 @@ Inputs
 4. county_column
     - integer 
         - The index of the column with county names
-5.
+5. return_daily_increment 
+    - boolean
+        - Decides whether results are returned as daily increments.
+6. return_running_avg
+    - boolean
+        - Decides whether to return running averages from results
+7. running_avg_window_size 
+    - integer
+        - Determines the window size for the running average
 
 
 Returns
-1. cases
+1. results
     - array of ints 
         - Data extracted from the given CSV file
