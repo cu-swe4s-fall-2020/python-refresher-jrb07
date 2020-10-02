@@ -5,4 +5,4 @@ run test_for_stderr python print_cases.py --file covid-19-data/us-counties.cs --
 assert_exit_code 1
 
 run test_for_stderr python print_cases.py --file covid-19-data/us-counties.csv --county_column 1 --result_column casess --county Boulder  --return_running_average True
-assert_exit_code 4
+assert_exit_code 1
