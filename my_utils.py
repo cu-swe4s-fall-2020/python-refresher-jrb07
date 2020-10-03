@@ -37,15 +37,7 @@ def get_column(file_name, query_column, query_value, result_column=1):
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            try:
-                results.append(int(A[result_column]))
-            except IndexError:
-                index = str(result_column)
-                print('result_column was assigned as '
-                      + str(result_column)
-                      + ' and is out of range. The range is 0-'
-                      + str(len(A)-1) + '.' + ' Please try again.')
-                sys.exit(1)
+            results.append(int(A[result_column]))
     f.close()
 
     return results
@@ -55,13 +47,13 @@ def open_file(file_name):
     try:
         f = open(file_name, 'r')
     except FileNotFoundError:
-        #         print('The file ' + file_name
-        #               + ' could not be found. Please try again.')
+        print('The file ' + file_name
+              + ' could not be found. Please try again.')
         sys.exit(1)
     except PermissionError:
-        #         print(file_name
-        #               + ' could not be accessed. Please try again.')
-        sys.exit(1)
+        print(file_name
+              + ' could not be accessed. Please try again.')
+        sys.exit(2)
 
     return f
 
@@ -85,13 +77,13 @@ def running_average(data, window_size=5):
     results = []
     average = 0
     if data is None:
-        #         print('No data passed to running_average')
-        sys.exit(2)
+        print('No data passed to running_average')
+        sys.exit(3)
     try:
         data[window_size]
     except IndexError:
-        #         print('Updating window_size from ' + str(window_size) +
-        #               ' to ' + str(len(data)))
+        print('Updating window_size from ' + str(window_size) +
+              ' to ' + str(len(data)))
         window_size = len(data)
         return np.mean(data), window_size
 
@@ -111,5 +103,5 @@ def handle_result_column(result_column, line):
                   + ' and is out of range. '
                   + 'Available result columns are '
                   + str(A))
-            sys.exit(1)
+            sys.exit(4)
     return result_column

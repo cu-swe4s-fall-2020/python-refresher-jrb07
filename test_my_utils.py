@@ -38,7 +38,7 @@ class TestMain(unittest.TestCase):
     def test_get_running_average_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.running_average(None)
-        self.assertEqual(cm.exception.code, 2)
+        self.assertEqual(cm.exception.code, 3)
 
     def test_get_running_average_random_mode(self):
         for i in range(10):
