@@ -1,16 +1,20 @@
 """
-Contains custom functions that will accomplish various file and
-text parsing to extract data from files based
+Contains custom functions that will perform various file and
+text parsing to extract data from CSV files based
 on given user defined parameters.
 """
 
 import array
 import sys
 import numpy as np
+from dateutil.parser import parse
+from datetime import timedelta
 
 
-def get_column(file_name, query_column, query_value, result_column=1):
-    """Opens a CSV file and retrieves the desired column data based on
+def get_column(file_name, query_column, query_value,
+               result_column=1, date_column=1):
+    """
+    Opens a CSV file and retrieves the desired column data based on
     the following parameters.
     Parameters:
                 file_name = string
@@ -21,12 +25,17 @@ def get_column(file_name, query_column, query_value, result_column=1):
                                     The name of the value to query
                 result_column = integer or string
                                     The index or name of the column to return
+                date_column = integer
+                                    The index of the column containing dates
     """
     results = array.array('i', [])
 
     f = open_file(file_name)
 
     header = None
+    date = None
+    _date = None
+    delta_date = None
 
     for line in f:
         if header is None:
@@ -37,13 +46,32 @@ def get_column(file_name, query_column, query_value, result_column=1):
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
+            if isDate(A[date_column]):
+                date = parse(A[date_column])
+            else:
+                raise ValueError
+                sys.exit(3)
             results.append(int(A[result_column]))
+            if _date is None:
+                _date = date
+                continue
+            delta_date = date - _date
+            if delta_date.days == 1 or delta_date.days == 0:
+                _date = date
+            else:
+                raise ValueError
+                sys.exit(2)
+
     f.close()
 
     return results
 
 
 def open_file(file_name):
+    '''
+    Will try to open a file with the given file 
+    name and handles exceptions that may occur.
+    '''
     try:
         f = open(file_name, 'r')
     except FileNotFoundError:
@@ -59,6 +87,10 @@ def open_file(file_name):
 
 
 def get_daily_count(data):
+    '''
+    Returns an array of results that represent the change in
+    value from index to index in the array.
+    '''
     results = []
     last_x = None
 
@@ -74,6 +106,10 @@ def get_daily_count(data):
 
 
 def running_average(data, window_size=5):
+    '''
+    Takes in an array of data then scans and averages the
+    values of that array based on the provided window size.
+    '''
     results = []
     average = 0
     if data is None:
@@ -94,6 +130,10 @@ def running_average(data, window_size=5):
 
 
 def handle_result_column(result_column, line):
+    '''
+    Converts a string result_column to the corresponding
+    integer ID of that column if it exists.
+    '''
     A = line.rstrip().split(',')
     if isinstance(result_column, str):
         try:
@@ -105,3 +145,18 @@ def handle_result_column(result_column, line):
                   + str(A))
             sys.exit(4)
     return result_column
+
+
+def is_date(string, fuzzy=False):
+    '''
+    Return whether the string can be interpreted as a date.
+
+    :param string: str, string to check for date
+    :param fuzzy: bool, ignore unknown tokens in string if True
+    '''
+    try: 
+        parse(string, fuzzy=fuzzy)
+        return True
+
+    except ValueError:
+        return False

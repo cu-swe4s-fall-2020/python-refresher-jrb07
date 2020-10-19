@@ -5,29 +5,28 @@ import unittest
 import random
 
 
-# TODO: Implement randomness
 class TestMain(unittest.TestCase):
 
     def test_get_column(self):
         test_results = None
         test_results = mu.get_column('covid-19-data/us-counties.csv',
-                                     1, 'Boulder', 4)
+                                     1, 'Boulder', 4, 0)
         self.assertIsNotNone(test_results)
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
-            mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4)
+            mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4, 0)
         self.assertEqual(cm.exception.code, 1)
 
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
-                          1, 'Boulder', 4))[19], 11)
+                          1, 'Boulder', 4, 0))[19], 11)
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.get_daily_count(mu.get_column('covid-19-data/us-counties.cs',
-                                             1, 'Boulder', 4))
+                                             1, 'Boulder', 4, 0))
         self.assertEqual(cm.exception.code, 1)
 
     def test_get_running_average(self):

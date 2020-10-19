@@ -74,6 +74,12 @@ def main():
                         help='Determines the window\
                         size for the running average.')
 
+    parser.add_argument('--date_column',
+                        dest='date_column',
+                        type=int,
+                        default=0,
+                        help='Determines the date column.')
+
     args = parser.parse_args()
 
     print()
@@ -82,12 +88,14 @@ def main():
         results = get_daily_count(args.file_name,
                                   args.county_column,
                                   args.county,
-                                  args.result_column)
+                                  args.result_column,
+                                  args.date_column)
     else:
         results = get_cases(args.file_name,
                             args.county_column,
                             args.county,
-                            args.result_column)
+                            args.result_column,
+                            args.date_column)
     if args.return_running_average is True:
         results, _ = running_average(results,
                                      window_size=args.running_avg_window_size)
@@ -101,22 +109,24 @@ def running_average(data, window_size):
     return mu.running_average(data, window_size)
 
 
-def get_daily_count(file_name, county_column, county, result_column=4):
+def get_daily_count(file_name, county_column, county,
+                    result_column=4, date_column=1):
     try:
         result_column = int(result_column)
     except ValueError:
         pass
     return mu.get_daily_count(get_cases(file_name, county_column, county,
-                              result_column))
+                              result_column, date_column))
 
 
-def get_cases(file_name, county_column, county, result_column=4):
+def get_cases(file_name, county_column, county,
+              result_column=4, date_column=1):
     try:
         result_column = int(result_column)
     except ValueError:
         pass
     return mu.get_column(file_name, county_column, county,
-                         result_column)
+                         result_column, date_column)
 
 
 if __name__ == '__main__':
