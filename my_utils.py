@@ -7,6 +7,7 @@ on given user defined parameters.
 import array
 import sys
 import numpy as np
+import dateutil
 from dateutil.parser import parse
 from datetime import timedelta
 
