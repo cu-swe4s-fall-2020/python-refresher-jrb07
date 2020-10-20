@@ -20,7 +20,9 @@ class TestMain(unittest.TestCase):
         self.assertEqual(cm.exception.code, 1)
 
     def test_date_parsing_error_mode(self):
-        mu.get_column('covid-19-data/us-counties.csv', 1, 'Boulder', 4, 3)
+        with self.assertRaises(SystemExit) as cm:
+            mu.get_column('covid-19-data/us-counties.csv', 1, 'Boulder', 4, 3)
+        self.assertEqual(cm.exception.code, 3)
 
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
