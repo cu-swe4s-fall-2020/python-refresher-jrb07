@@ -46,7 +46,7 @@ def get_column(file_name, query_column, query_value,
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            if isDate(A[date_column]):
+            if is_date(A[date_column]):
                 date = parse(A[date_column])
             else:
                 raise ValueError
