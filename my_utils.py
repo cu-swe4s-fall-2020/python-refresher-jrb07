@@ -7,7 +7,6 @@ on given user defined parameters.
 import array
 import sys
 import numpy as np
-import dateutil
 from dateutil.parser import parse
 from datetime import timedelta
 
@@ -70,7 +69,7 @@ def get_column(file_name, query_column, query_value,
 
 def open_file(file_name):
     '''
-    Will try to open a file with the given file 
+    Will try to open a file with the given file
     name and handles exceptions that may occur.
     '''
     try:
@@ -155,7 +154,7 @@ def is_date(string, fuzzy=False):
     :param string: str, string to check for date
     :param fuzzy: bool, ignore unknown tokens in string if True
     '''
-    try: 
+    try:
         parse(string, fuzzy=fuzzy)
         return True
 
