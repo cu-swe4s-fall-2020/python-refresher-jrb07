@@ -50,7 +50,6 @@ def get_column(file_name, query_column, query_value,
                 date = parse(A[date_column])
             else:
                 raise ValueError
-                sys.exit(3)
             results.append(int(A[result_column]))
             if _date is None:
                 _date = date
@@ -60,7 +59,6 @@ def get_column(file_name, query_column, query_value,
                 _date = date
             else:
                 raise ValueError
-                sys.exit(2)
 
     f.close()
 

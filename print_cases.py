@@ -85,20 +85,33 @@ def main():
     print()
     print('Results:')
     if args.return_daily_increment is True:
-        results = get_daily_count(args.file_name,
-                                  args.county_column,
-                                  args.county,
-                                  args.result_column,
-                                  args.date_column)
+        try:
+            results = get_daily_count(args.file_name,
+                                      args.county_column,
+                                      args.county,
+                                      args.result_column,
+                                      args.date_column)
+        except ValueError:
+            print('ValueError in get daily count')
+            sys.exit(6)
     else:
-        results = get_cases(args.file_name,
-                            args.county_column,
-                            args.county,
-                            args.result_column,
-                            args.date_column)
+        try:
+            results = get_cases(args.file_name,
+                                args.county_column,
+                                args.county,
+                                args.result_column,
+                                args.date_column)
+        except ValueError:
+            print('ValueError during get cases')
+            sys.exit(6)
     if args.return_running_average is True:
-        results, _ = running_average(results,
-                                     window_size=args.running_avg_window_size)
+        try:
+            results, _ = running_average(results,
+                                         window_size=args.
+                                         running_avg_window_size)
+        except ValueError:
+            print('ValueError during running average')
+            sys.exit(6)
     for result in results:
         print(result)
     print()
