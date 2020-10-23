@@ -107,7 +107,8 @@ def main():
     if args.return_running_average is True:
         try:
             results, _ = running_average(results,
-                                         window_size=args.running_avg_window_size)
+                                         window_size=args.
+                                         running_avg_window_size)
         except ValueError:
             print('ValueError during running average')
             sys.exit(6)

@@ -19,6 +19,7 @@ class TestMain(unittest.TestCase):
             mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4, 0)
         self.assertEqual(cm.exception.code, 1)
 
+
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
