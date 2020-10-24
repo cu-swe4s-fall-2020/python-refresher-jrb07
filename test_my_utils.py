@@ -20,6 +20,18 @@ class TestMain(unittest.TestCase):
         self.assertEqual(cm.exception.code, 1)
 
 
+    def test_date_skipping(self):
+        mu.get_column('test_date_missing.csv', 1, 'Boulder', 4, 0)
+
+
+    def test_no_date_column(self):
+        mu.get_column('test_date_missing.csv', 1, 'Boulder', 4, None)
+
+
+    def test_out_of_order_date(self):
+        mu.get_column('test_date_out_of_order.csv', 1, 'Boulder', 4, 0)
+
+
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
