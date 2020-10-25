@@ -29,13 +29,16 @@ class TestMain(unittest.TestCase):
 
 
     def test_out_of_order_date(self):
-        mu.get_column('test_date_out_of_order.csv', 1, 'Boulder', 4, 0)
+        try:
+            mu.get_column('test_date_disorder.csv', 1, 'Boulder', 4, 0)
+        except ValueError:
+            pass
 
 
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
-                          1, 'Boulder', 4, 0))[19], 11)
+                          1, 'Boulder', 4, 0))[19], 0)
 
 
     def test_get_daily_count_error_mode(self):
