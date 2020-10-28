@@ -46,19 +46,22 @@ def get_column(file_name, query_column, query_value,
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            if is_date(A[date_column]):
-                date = parse(A[date_column])
-            else:
-                raise ValueError
-            results.append(int(A[result_column]))
-            if _date is None:
-                _date = date
-                continue
-            delta_date = date - _date
-            if delta_date.days == 1 or delta_date.days == 0:
-                _date = date
-            else:
-                raise ValueError
+            if date_column is not None:
+                if is_date(A[date_column]):
+                    date = parse(A[date_column])
+                else:
+                    f.close()
+                    raise ValueError
+                if _date is None:
+                    _date = date
+                    continue
+                delta_date = date - _date
+                if delta_date.days == 1 or delta_date.days == 0:
+                    _date = date
+                else:
+                    f.close()
+                    raise ValueError
+        results.append(int(A[result_column]))
 
     f.close()
 
