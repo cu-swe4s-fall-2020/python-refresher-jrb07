@@ -58,7 +58,7 @@ class TestMain(unittest.TestCase):
                 x = random.randint(0, 10000)
                 arr.append(x)
             for k in range(100):
-                window = random.randint(1, 100)
+                window = random.randint(1, 200)
                 test_data, _ = mu.running_average(arr, window)
                 for m in range(int(100/window)-1):
                     expected_result = np.mean(arr[m:m + window])
