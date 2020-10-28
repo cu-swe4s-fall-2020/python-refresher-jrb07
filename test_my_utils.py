@@ -13,20 +13,16 @@ class TestMain(unittest.TestCase):
                                      1, 'Boulder', 4, 0)
         self.assertIsNotNone(test_results)
 
-
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4, 0)
         self.assertEqual(cm.exception.code, 1)
 
-
     def test_date_skipping(self):
         mu.get_column('test_date_missing.csv', 1, 'Boulder', 4, 0)
 
-
     def test_no_date_column(self):
         mu.get_column('test_date_missing.csv', 1, 'Boulder', 4, None)
-
 
     def test_out_of_order_date(self):
         try:
@@ -34,12 +30,10 @@ class TestMain(unittest.TestCase):
         except ValueError:
             pass
 
-
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
                           1, 'Boulder', 4, 0))[19], 0)
-
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
@@ -47,18 +41,15 @@ class TestMain(unittest.TestCase):
                                              1, 'Boulder', 4, 0))
         self.assertEqual(cm.exception.code, 1)
 
-
     def test_get_running_average(self):
         test_results = None
         test_results = mu.running_average([1, 2, 1, 2])
         self.assertAlmostEqual(test_results[0], 1.5)
 
-
     def test_get_running_average_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.running_average(None)
         self.assertEqual(cm.exception.code, 3)
-
 
     def test_get_running_average_random_mode(self):
         for i in range(10):

@@ -93,7 +93,8 @@ def main():
                                       args.result_column,
                                       args.date_column)
         except ValueError:
-            print('ValueError in get daily count')
+            print('ValueError in get daily count', file=sys.stdout)
+            print(file=sys.stdout)
             sys.exit(6)
     else:
         try:
@@ -103,7 +104,7 @@ def main():
                                 args.result_column,
                                 args.date_column)
         except ValueError:
-            print('ValueError during get cases')
+            print('ValueError during get cases', file=sys.stdout)
             sys.exit(6)
     if args.return_running_average is True:
         try:
@@ -111,7 +112,7 @@ def main():
                                          window_size=args.
                                          running_avg_window_size)
         except ValueError:
-            print('ValueError during running average')
+            print('ValueError during running average', file=sys.stdout)
             sys.exit(6)
     for result in results:
         print(result)
