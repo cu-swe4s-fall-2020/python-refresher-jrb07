@@ -86,7 +86,7 @@ def get_column(
                     _date = date
                     continue
                 delta_date = date - _date
-                if delta_date.days == 1 or delta_date.days == 0:
+                if delta_date.days >= 0:
                     _date = date
                 else:
                     f.close()
