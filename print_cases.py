@@ -25,6 +25,7 @@ Returns:
 
 import argparse
 import my_utils as mu
+import sys
 
 
 def main():
@@ -84,71 +85,47 @@ def main():
 
     print()
     print('Results:')
+    try:
+        args.result_column = parse_result_column(args.result_column)
+    except ValueError:
+        pass
     if args.return_daily_increment is True:
         try:
-            results = get_daily_count(args.file_name,
-                                      args.county_column,
-                                      args.county,
-                                      args.result_column,
-                                      args.date_column)
+            results = mu.get_daily_count(
+                get_cases(
+                    args.file_name,
+                    args.county_column,
+                    args.county,
+                    args.result_column,
+                    args.date_column))
         except ValueError:
-            print('ValueError in get daily count')
-            sys.exit(6)
+            print('Value Error during get daily count.')
     else:
         try:
-            results = get_cases(args.file_name,
-                                args.county_column,
-                                args.county,
-                                args.result_column,
-                                args.date_column)
+            results = mu.get_column(
+                args.file_name,
+                args.county_column,
+                args.county,
+                args.result_column,
+                args.date_column)
         except ValueError:
-            print('ValueError during get cases')
-            sys.exit(6)
+            print('ValueError during get column')
     if args.return_running_average is True:
         try:
-            results, _ = running_average(results,
-                                         window_size=args.
-                                         running_avg_window_size)
+            results, _ = mu.running_average(
+                results,
+                window_size=args.running_avg_window_size)
         except ValueError:
             print('ValueError during running average')
-            sys.exit(6)
     for result in results:
         print(result)
     print()
     print()
 
 
-def running_average(data, window_size):
-    '''
-    Passes user-defined parameters to my_utils.py running_average
-    function and returns the results.
-    '''
-    return mu.running_average(data, window_size)
-
-
-def get_daily_count(file_name, county_column, county,
-                    result_column=4, date_column=1):
-    '''
-    Passes user-defined parameters to my_utils.py get_daily_count
-    function and returns the results.
-    '''
-    result_column = parse_result_column(result_column)
-    return mu.get_daily_count(get_cases(file_name, county_column, county,
-                              result_column, date_column))
-
-
-def get_cases(file_name, county_column, county,
-              result_column=4, date_column=1):
-    '''
-    Passes user-defined parameters to my_utils.py get_column function
-    and returns the results.
-    '''
-    result_column = parse_result_column(result_column)
-    return mu.get_column(file_name, county_column, county,
-                         result_column, date_column)
-
-
-def parse_result_column(result_column):
+def parse_result_column(
+    result_column
+):
     '''
     Attempts to cast result column as an int.
     '''
