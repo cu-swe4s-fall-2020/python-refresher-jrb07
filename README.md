@@ -26,9 +26,9 @@ Inputs
 2. county
     - string 
         - The name of the county to return data for
-3. results_column
-    - integer or string
-        - The zero-based index or the name of the column to return
+3. results_column(s)
+    - integer(s) or string(s)
+        - The zero-based index/indices or the name(s) of the column(s) to return
 4. county_column
     - integer 
         - The index of the column with county names
@@ -45,5 +45,5 @@ Inputs
 
 Returns
 1. results
-    - array of ints 
+    - array of ints or list of arrays of ints
         - Data extracted from the given CSV file
