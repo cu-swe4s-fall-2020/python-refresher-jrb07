@@ -7,7 +7,7 @@ Parameters:
                     The path to the CSV file
     county: string
                     The name of the county to return data for
-    result_column: integer or string
+    result_column(s): integer(s) or string(s)
                     The zero-based index or name of the column to return
     county_column: integer
                     The index of the column with county names
@@ -18,14 +18,13 @@ Parameters:
      running_avg_window_size: integer
                     Determines the window size for the running average
 Returns:
-    results: array
+    results: array or list of lists
               Data extracted from the given CSV file
 
 """
 
 import argparse
 import my_utils as mu
-import sys
 
 
 def main():
