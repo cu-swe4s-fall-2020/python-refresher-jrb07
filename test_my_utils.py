@@ -13,6 +13,12 @@ class TestMain(unittest.TestCase):
                                      1, 'Boulder', 4, 0)
         self.assertIsNotNone(test_results)
 
+    def test_get_columns(self):
+        test_results = None
+        test_results = mu.get_columns('covid-19-data/us-counties.csv',
+                                      1, 'Boulder', [4, 5], 0)
+        self.assertIsNotNone(test_results)
+
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.get_column('covid-19-data/us-counties.cs', 1, 'Boulder', 4, 0)
@@ -25,15 +31,14 @@ class TestMain(unittest.TestCase):
         mu.get_column('test_date_missing.csv', 1, 'Boulder', 4, None)
 
     def test_out_of_order_date(self):
-        try:
+        with self.assertRaises(SystemExit) as cm:
             mu.get_column('test_date_disorder.csv', 1, 'Boulder', 4, 0)
-        except ValueError:
-            pass
+        self.assertEqual(cm.exception.code, 6)
 
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
-                          1, 'Boulder', 4, 0))[19], 0)
+                          1, 'Boulder', 4, 0))[4], 13)
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
