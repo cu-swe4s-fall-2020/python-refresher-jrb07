@@ -11,8 +11,38 @@ from dateutil.parser import parse
 from datetime import timedelta
 
 
-def get_column(file_name, query_column, query_value,
-               result_column=1, date_column=1):
+def get_columns(
+    file_name,
+    query_column,
+    query_value,
+    result_columns=[],
+    date_column=1
+):
+    '''
+    This function leverages get column to create a list
+    of results that includes data from multiple result columns.
+    '''
+    if result_columns == []:
+        raise ValueError(sys.exit(6))
+    results = []
+    for i in range(len(result_columns)-1):
+        results.append(get_column(
+            file_name,
+            query_column,
+            query_value,
+            result_columns[i],
+            date_column))
+
+    return results
+
+
+def get_column(
+    file_name,
+    query_column,
+    query_value,
+    result_column=1,
+    date_column=1
+):
     """
     Opens a CSV file and retrieves the desired column data based on
     the following parameters.
@@ -46,26 +76,32 @@ def get_column(file_name, query_column, query_value,
         A = line.rstrip().split(',')
 
         if A[query_column] == query_value:
-            if is_date(A[date_column]):
-                date = parse(A[date_column])
-            else:
-                raise ValueError
+            if date_column is not None:
+                if is_date(A[date_column]):
+                    date = parse(A[date_column])
+                else:
+                    f.close()
+                    raise ValueError(sys.exit(6))
+                if _date is None:
+                    _date = date
+                    continue
+                delta_date = date - _date
+                if delta_date.days >= 0:
+                    _date = date
+                else:
+                    f.close()
+                    raise ValueError(sys.exit(6))
+
             results.append(int(A[result_column]))
-            if _date is None:
-                _date = date
-                continue
-            delta_date = date - _date
-            if delta_date.days == 1 or delta_date.days == 0:
-                _date = date
-            else:
-                raise ValueError
 
     f.close()
 
     return results
 
 
-def open_file(file_name):
+def open_file(
+    file_name
+):
     '''
     Will try to open a file with the given file
     name and handles exceptions that may occur.
@@ -84,7 +120,9 @@ def open_file(file_name):
     return f
 
 
-def get_daily_count(data):
+def get_daily_count(
+    data
+):
     '''
     Returns an array of results that represent the change in
     value from index to index in the array.
@@ -103,7 +141,10 @@ def get_daily_count(data):
     return results
 
 
-def running_average(data, window_size=5):
+def running_average(
+    data,
+    window_size=5
+):
     '''
     Takes in an array of data then scans and averages the
     values of that array based on the provided window size.
@@ -112,12 +153,12 @@ def running_average(data, window_size=5):
     average = 0
     if data is None:
         print('No data passed to running_average')
-        sys.exit(3)
+        raise ValueError(sys.exit(3))
     try:
         data[window_size]
     except IndexError:
-        print('Updating window_size from ' + str(window_size) +
-              ' to ' + str(len(data)))
+        #         print('Updating window_size from ' + str(window_size) +
+        #               ' to ' + str(len(data)))
         window_size = len(data)
         return np.mean(data), window_size
 
@@ -127,7 +168,10 @@ def running_average(data, window_size=5):
     return results, window_size
 
 
-def handle_result_column(result_column, line):
+def handle_result_column(
+    result_column,
+    line
+):
     '''
     Converts a string result_column to the corresponding
     integer ID of that column if it exists.
@@ -145,7 +189,10 @@ def handle_result_column(result_column, line):
     return result_column
 
 
-def is_date(string, fuzzy=False):
+def is_date(
+    string,
+    fuzzy=False
+):
     '''
     Return whether the string can be interpreted as a date.
 
