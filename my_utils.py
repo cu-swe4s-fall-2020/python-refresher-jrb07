@@ -58,7 +58,7 @@ def get_column(
                 date_column = integer
                                     The index of the column containing dates
     """
-    results = array.array('i', [])
+    results = []
 
     f = open_file(file_name)
 
@@ -91,8 +91,10 @@ def get_column(
                 else:
                     f.close()
                     raise ValueError(sys.exit(6))
-
-            results.append(int(A[result_column]))
+            try:
+                results.append(int(A[result_column]))
+            except ValueError:
+                results.append(A[result_column])
 
     f.close()
 

@@ -16,9 +16,9 @@ class TestMain(unittest.TestCase):
     def test_get_columns_dates_cases(self):
         test_results = None
         test_results = mu.get_columns('covid-19-data/us-counties.csv',
-                                      1, 'Boulder', [4, 5], 0)
+                                      1, 'Boulder', ['cases', 'date'], 0)
         self.assertEqual(test_results[0][5], 24)
-        self.assertEqual(test_results[1][25], 7)
+        self.assertEqual(test_results[1][25], '2020-04-09')
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
