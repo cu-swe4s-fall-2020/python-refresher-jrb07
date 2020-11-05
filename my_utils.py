@@ -25,7 +25,7 @@ def get_columns(
     if result_columns == []:
         raise ValueError(sys.exit(6))
     results = []
-    for i in range(len(result_columns)-1):
+    for i in range(len(result_columns)):
         results.append(get_column(
             file_name,
             query_column,

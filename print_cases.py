@@ -40,7 +40,8 @@ def main():
     parser.add_argument('--result_column', dest='result_column',
                         default=4,
                         help='Column of file to be returned by the script.\
-                        Defaults to 4 and can be an int or a string name.'
+                        Defaults to 4 and must correspond to an index\
+                        found in the file.'
                         )
 
     parser.add_argument('--county_column', dest='county_column',

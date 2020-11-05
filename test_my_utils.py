@@ -13,11 +13,12 @@ class TestMain(unittest.TestCase):
                                      1, 'Boulder', 4, 0)
         self.assertIsNotNone(test_results)
 
-    def test_get_columns(self):
+    def test_get_columns_dates_cases(self):
         test_results = None
         test_results = mu.get_columns('covid-19-data/us-counties.csv',
                                       1, 'Boulder', [4, 5], 0)
-        self.assertIsNotNone(test_results)
+        self.assertEqual(test_results[0][5], 24)
+        self.assertEqual(test_results[1][25], 7)
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:

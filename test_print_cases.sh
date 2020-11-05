@@ -1,4 +1,3 @@
-
 test -e ssshtest || wget -q https://raw.githubusercontent.com/ryanlayer/ssshtest/master/ssshtest
 . ssshtest
 
@@ -10,3 +9,6 @@ assert_exit_code 4
 
 run test_for_stderr python print_cases.py --file test.csv --county_column 1 --result_column cases --county Boulder  --return_running_average True --date_column 2
 assert_exit_code 4
+
+run test_for_stderr python print_cases.py --file test_date_disorder.csv --county_column 1 --result_column [dates, cases] --county Boulder  --return_running_average True --date_column 0
+assert_exit_code 6
