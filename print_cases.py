@@ -23,8 +23,8 @@ Returns:
 
 """
 
-import argparse
 import my_utils as mu
+import argparse
 
 
 def main():
