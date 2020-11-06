@@ -23,6 +23,7 @@ def get_columns(
     of results that includes data from multiple result columns.
     '''
     if result_columns == []:
+        print('result column assigned as an empty array...')
         raise ValueError(sys.exit(6))
     results = []
     for i in range(len(result_columns)):
@@ -74,13 +75,19 @@ def get_column(
             continue
 
         A = line.rstrip().split(',')
-
         if A[query_column] == query_value:
+            try:
+                results.append(A[result_column])
+            except ValueError:
+                print('Could not append result.')
+                sys.exit(6)
+
             if date_column is not None:
                 if is_date(A[date_column]):
                     date = parse(A[date_column])
                 else:
                     f.close()
+                    print('Date column was not assigned correctly.')
                     raise ValueError(sys.exit(6))
                 if _date is None:
                     _date = date
@@ -90,11 +97,8 @@ def get_column(
                     _date = date
                 else:
                     f.close()
+                    print('Dates are out of order.')
                     raise ValueError(sys.exit(6))
-            try:
-                results.append(int(A[result_column]))
-            except ValueError:
-                results.append(A[result_column])
 
     f.close()
 
@@ -174,20 +178,24 @@ def handle_result_column(
     result_column,
     line
 ):
+    try:
+        result_column = int(result_column)
+        return result_column
+    except ValueError:
+        pass
     '''
     Converts a string result_column to the corresponding
     integer ID of that column if it exists.
     '''
     A = line.rstrip().split(',')
-    if isinstance(result_column, str):
-        try:
-            result_column = A.index(result_column)
-        except ValueError:
-            print('result_column_str was assigned as ' + result_column
-                  + ' and is out of range. '
-                  + 'Available result columns are '
-                  + str(A))
-            sys.exit(4)
+    try:
+        result_column = A.index(result_column)
+    except ValueError:
+        print('result_column_str was assigned as ' + str(result_column)
+              + ' and is out of range. '
+              + 'Available result columns are '
+              + str(A))
+        sys.exit(4)
     return result_column
 
 
