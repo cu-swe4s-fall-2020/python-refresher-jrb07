@@ -17,8 +17,8 @@ class TestMain(unittest.TestCase):
         test_results = None
         test_results = mu.get_columns('covid-19-data/us-counties.csv',
                                       1, 'Boulder', ['cases', 'date'], 0)
-        self.assertEqual(test_results[0][5], 24)
-        self.assertEqual(test_results[1][25], '2020-04-09')
+        self.assertEqual(test_results[0][5], '11')
+        self.assertEqual(test_results[1][25], '2020-04-08')
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
@@ -39,7 +39,7 @@ class TestMain(unittest.TestCase):
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
-                          1, 'Boulder', 4, 0))[4], 13)
+                          1, 'Boulder', 4, 0))[4], 3)
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:

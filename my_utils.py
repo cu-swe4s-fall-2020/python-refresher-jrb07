@@ -140,7 +140,10 @@ def get_daily_count(
         if last_x is None:
             last_x = x
             continue
-        delta = x - last_x
+        try:
+            delta = x - last_x
+        except TypeError:
+            delta = int(x) - int(last_x)
         results.append(delta)
         last_x = x
 
