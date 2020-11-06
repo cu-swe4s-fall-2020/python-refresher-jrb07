@@ -12,4 +12,4 @@ run test_for_stderr python print_cases.py --file test.csv --county_column 1 --re
 assert_exit_code 4
 
 run test_for_stderr python print_cases.py --file test_date_disorder.csv --county_column 1 --result_column 'date,cases' --county Boulder --date_column 0
-assert_exit_code 2
+assert_exit_code 4
