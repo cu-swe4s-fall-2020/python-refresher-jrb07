@@ -23,8 +23,8 @@ Returns:
 
 """
 
-import argparse
 import my_utils as mu
+import argparse
 
 
 def main():
@@ -40,7 +40,8 @@ def main():
     parser.add_argument('--result_column', dest='result_column',
                         default=4,
                         help='Column of file to be returned by the script.\
-                        Defaults to 4 and can be an int or a string name.'
+                        Defaults to 4 and must correspond to an index\
+                        found in the file.'
                         )
 
     parser.add_argument('--county_column', dest='county_column',
@@ -84,21 +85,25 @@ def main():
 
     print()
     print('Results:')
+    results = []
     try:
-        args.result_column = parse_result_column(args.result_column)
+        args.result_column = int(args.result_column)
     except ValueError:
         pass
-    if args.return_daily_increment is True:
+    if ',' in args.result_column:
+        result_array = []
+        for result in args.result_column.split(','):
+            result_array.append(str(result))
+            args.result_column = result_array
         try:
-            results = mu.get_daily_count(
-                get_cases(
-                    args.file_name,
-                    args.county_column,
-                    args.county,
-                    args.result_column,
-                    args.date_column))
+            results = mu.get_columns(
+                args.file_name,
+                args.county_column,
+                args.county,
+                args.result_column,
+                args.date_column)
         except ValueError:
-            print('Value Error during get daily count.')
+            print('ValueError during get columns')
     else:
         try:
             results = mu.get_column(
@@ -109,6 +114,17 @@ def main():
                 args.date_column)
         except ValueError:
             print('ValueError during get column')
+    if args.return_daily_increment is True:
+        try:
+            results = mu.get_daily_count(
+                get_cases(
+                    args.file_name,
+                    args.county_column,
+                    args.county,
+                    args.result_column,
+                    args.date_column))
+        except ValueError:
+            print('Value Error during get daily increment.')
     if args.return_running_average is True:
         try:
             results, _ = mu.running_average(
@@ -120,19 +136,6 @@ def main():
         print(result)
     print()
     print()
-
-
-def parse_result_column(
-    result_column
-):
-    '''
-    Attempts to cast result column as an int.
-    '''
-    try:
-        result_column = int(result_column)
-    except ValueError:
-        pass
-    return result_column
 
 
 if __name__ == '__main__':

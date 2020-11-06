@@ -7,17 +7,56 @@ import random
 
 class TestMain(unittest.TestCase):
 
+    def test_binary_search(self):
+        key = 'hi'
+        L = []
+        result = mu.binary_search(key, L)
+
+        self.assertIsNone(result)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 5]]
+        result = mu.binary_search(key, L)
+
+        self.assertEqual(result, 5)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        result = mu.binary_search(key, L)
+
+        self.assertEqual(result, 10)
+
+    def test_linear_search(self):
+        key = 'hi'
+        L = []
+        result = mu.linear_search(key, L)
+
+        self.assertIsNone(result)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 5]]
+        result = mu.linear_search(key, L)
+
+        self.assertEqual(result, 5)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        result = mu.linear_search(key, L)
+
+        self.assertEqual(result, 10)
+
     def test_get_column(self):
         test_results = None
         test_results = mu.get_column('covid-19-data/us-counties.csv',
                                      1, 'Boulder', 4, 0)
         self.assertIsNotNone(test_results)
 
-    def test_get_columns(self):
+    def test_get_columns_dates_cases(self):
         test_results = None
         test_results = mu.get_columns('covid-19-data/us-counties.csv',
-                                      1, 'Boulder', [4, 5], 0)
-        self.assertIsNotNone(test_results)
+                                      1, 'Boulder', ['cases', 'date'], 0)
+        self.assertEqual(test_results[0][5], '11')
+        self.assertEqual(test_results[1][25], '2020-04-08')
 
     def test_get_column_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
@@ -38,7 +77,7 @@ class TestMain(unittest.TestCase):
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
             mu.get_column('covid-19-data/us-counties.csv',
-                          1, 'Boulder', 4, 0))[4], 13)
+                          1, 'Boulder', 4, 0))[4], 3)
 
     def test_get_daily_count_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
