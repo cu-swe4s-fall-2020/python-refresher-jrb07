@@ -7,6 +7,44 @@ import random
 
 class TestMain(unittest.TestCase):
 
+    def test_binary_search(self):
+        key = 'hi'
+        L = []
+        result = mu.binary_search(key, L)
+
+        self.assertIsNone(result)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 5]]
+        result = mu.binary_search(key, L)
+
+        self.assertEqual(result, 5)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        result = mu.binary_search(key, L)
+
+        self.assertEqual(result, 10)
+
+    def test_linear_search(self):
+        key = 'hi'
+        L = []
+        result = mu.linear_search(key, L)
+
+        self.assertIsNone(result)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 5]]
+        result = mu.linear_search(key, L)
+
+        self.assertEqual(result, 5)
+
+        key = 'hi'
+        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        result = mu.linear_search(key, L)
+
+        self.assertEqual(result, 10)
+
     def test_get_column(self):
         test_results = None
         test_results = mu.get_column('covid-19-data/us-counties.csv',

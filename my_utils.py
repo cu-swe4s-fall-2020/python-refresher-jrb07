@@ -11,6 +11,28 @@ from dateutil.parser import parse
 from datetime import timedelta
 
 
+def binary_search(query, pairs):
+    start = -1
+    end = len(pairs)
+    
+    while(end - start > 1):
+        mid = (end + start)//2
+        
+        if query == pairs[mid][0]:
+            return pairs[mid][1]
+        elif query < pairs[mid][0]:
+            end = mid
+        else:
+            start = mid
+    return None
+
+
+def linear_search(query, pairs):
+    for key, value in pairs:
+        if query == key:
+            return value
+
+
 def get_columns(
     file_name,
     query_column,
