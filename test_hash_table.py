@@ -2,6 +2,7 @@ import unittest
 import random
 import hash_table
 
+
 class TestMain(unittest.TestCase):
 
     def test_hash_table(self):
