@@ -9,7 +9,7 @@ class Hash_Table:
 
     def __init__(self, size):
         self.size = size
-        self.my_hash_table = [[] for _ in range(self.size)]
+        self.hash_array = [[] for _ in range(self.size)]
 
     def hash_function(self, string, size=None):
         if size is None:
@@ -17,7 +17,7 @@ class Hash_Table:
         return hash(string) % size
 
     def get(self, key):
-        return self.my_hash_table[self.hash_function(key)]
+        return self.hash_array[self.hash_function(key)]
 
     def put(self, key, value):
-        self.my_hash_table[self.hash_function(key)].append(value)
+        self.hash_array[self.hash_function(key)].append(value)
