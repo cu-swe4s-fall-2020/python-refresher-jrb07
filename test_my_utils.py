@@ -15,13 +15,13 @@ class TestMain(unittest.TestCase):
         self.assertIsNone(result)
 
         key = 'hi'
-        L = [ ['bye', 3], ['hi', 5]]
+        L = [['bye', 3], ['hi', 5]]
         result = mu.binary_search(key, L)
 
         self.assertEqual(result, 5)
 
         key = 'hi'
-        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        L = [['bye', 3], ['hi', 10], ['hi', 5]]
         result = mu.binary_search(key, L)
 
         self.assertEqual(result, 10)
@@ -34,13 +34,13 @@ class TestMain(unittest.TestCase):
         self.assertIsNone(result)
 
         key = 'hi'
-        L = [ ['bye', 3], ['hi', 5]]
+        L = [['bye', 3], ['hi', 5]]
         result = mu.linear_search(key, L)
 
         self.assertEqual(result, 5)
 
         key = 'hi'
-        L = [ ['bye', 3], ['hi', 10], ['hi', 5]]
+        L = [['bye', 3], ['hi', 10], ['hi', 5]]
         result = mu.linear_search(key, L)
 
         self.assertEqual(result, 10)

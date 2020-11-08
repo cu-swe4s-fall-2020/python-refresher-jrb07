@@ -5,6 +5,10 @@ pycodestyle my_utils.py
 
 pycodestyle test_my_utils.py
 
+pycodestyle hash_table.py
+
+pycodestyle test_hash_table.py
+
 python print_cases.py --file test_pop_data.csv --county_column 1 --result_column '4,9' --county Boulder
 
 python print_cases.py --file covid-19-data/us-counties.csv --county_column 1 --result_column 'date,cases' --county Boulder
