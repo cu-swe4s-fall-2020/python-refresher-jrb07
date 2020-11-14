@@ -9,6 +9,7 @@ import sys
 import numpy as np
 from dateutil.parser import parse
 from datetime import timedelta
+import pandas as pd
 
 
 def binary_search(query, pairs):
@@ -87,7 +88,7 @@ def get_column(
     date = None
     _date = None
     delta_date = None
-    print(f)
+
     for line in f:
         if header is None:
             header = line,
@@ -132,7 +133,7 @@ def open_file(
     name and handles exceptions that may occur.
     '''
     try:
-        f = open(file_name, 'r')
+        f = open(file_name, 'r', encoding='latin-1')
     except FileNotFoundError:
         print('The file ' + file_name
               + ' could not be found. Please try again.')

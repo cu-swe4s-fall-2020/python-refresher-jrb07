@@ -19,8 +19,9 @@ def get_rates(state):
                                   query_value,
                                   result_columns, 0)
     co_cases = []
-    for r in result:
-        co_cases.append([r[0], r[1], r[2]])
+
+    for i in range(len(result[0])):
+        co_cases.append([result[0][i], result[1][i], result[2][i]])
 
     population_file = 'co-est2019-alldata.csv'
     query_column = 5
@@ -31,8 +32,8 @@ def get_rates(state):
                                   query_value,
                                   result_columns)
     co_pops = []
-    for r in result:
-        co_pops.append([r[0], int(r[1])])
+    for i in range(len(result[0])):
+        co_pops.append([result[0][i], int(result[1][i])])
 
     co_pops.sort(key=itemgetter(0))
 
@@ -42,6 +43,8 @@ def get_rates(state):
         if pop is not None:
             if co[0] == target_date:
                 print(co[2]/pop, end=' ')
+
+    return [co_cases, co_pops]
 
 
 def main():
