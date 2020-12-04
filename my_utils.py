@@ -34,12 +34,11 @@ def linear_search(query, pairs):
             return value
 
 
-def get_columns(
-    file_name,
-    query_column,
-    query_value,
-    result_columns=[],
-    date_column=1):
+def get_columns(file_name,
+                query_column,
+                query_value,
+                result_columns=[],
+                date_column=1):
     '''
     This function leverages get column to create a list
     of results that includes data from multiple result columns.
@@ -59,12 +58,11 @@ def get_columns(
     return results
 
 
-def get_column(
-    file_name,
-    query_column,
-    query_value,
-    result_column=1,
-    date_column=1):
+def get_column(file_name,
+               query_column,
+               query_value,
+               result_column=1,
+               date_column=1):
     """
     Opens a CSV file and retrieves the desired column data based on
     the following parameters.
@@ -126,8 +124,7 @@ def get_column(
     return results
 
 
-def open_file(
-    file_name):
+def open_file(file_name):
     '''
     Will try to open a file with the given file
     name and handles exceptions that may occur.
@@ -146,8 +143,7 @@ def open_file(
     return f
 
 
-def get_daily_count(
-    data):
+def get_daily_count(data):
     '''
     Returns an array of results that represent the change in
     value from index to index in the array.
@@ -169,9 +165,8 @@ def get_daily_count(
     return results
 
 
-def running_average(
-    data,
-    window_size=5):
+def running_average(data,
+                    window_size=5):
     '''
     Takes in an array of data then scans and averages the
     values of that array based on the provided window size.
@@ -195,9 +190,8 @@ def running_average(
     return results, window_size
 
 
-def handle_result_column(
-    result_column,
-    line):
+def handle_result_column(result_column,
+                         line):
     try:
         result_column = int(result_column)
         return result_column
@@ -219,9 +213,8 @@ def handle_result_column(
     return result_column
 
 
-def is_date(
-    string,
-    fuzzy=False):
+def is_date(string,
+            fuzzy=False):
     '''
     Return whether the string can be interpreted as a date.
 
