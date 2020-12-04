@@ -45,7 +45,7 @@ def get_columns(file_name,
     '''
     if result_columns == []:
         print('result column assigned as an empty array please re-assign')
-        raise ValueError(sys.exit(6))
+        raise ValueError(sys.exit(1))
     results = []
     for i in range(len(result_columns)):
         results.append(get_column(
@@ -99,7 +99,7 @@ def get_column(file_name,
                 results.append(A[result_column])
             except ValueError:
                 print('Could not append result.')
-                sys.exit(6)
+                sys.exit(1)
 
             if date_column is not None:
                 if is_date(A[date_column]):
@@ -107,7 +107,7 @@ def get_column(file_name,
                 else:
                     f.close()
                     print('Date column was not assigned correctly.')
-                    raise ValueError(sys.exit(6))
+                    raise ValueError(sys.exit(1))
                 if _date is None:
                     _date = date
                     continue
@@ -117,7 +117,7 @@ def get_column(file_name,
                 else:
                     f.close()
                     print('Dates are out of order.')
-                    raise ValueError(sys.exit(6))
+                    raise ValueError(sys.exit(1))
 
     f.close()
 
@@ -138,7 +138,7 @@ def open_file(file_name):
     except PermissionError:
         print(file_name
               + ' could not be accessed. Please try again.')
-        sys.exit(2)
+        sys.exit(1)
 
     return f
 
@@ -175,7 +175,7 @@ def running_average(data,
     average = 0
     if data is None:
         print('No data passed to running_average')
-        raise ValueError(sys.exit(3))
+        raise ValueError(sys.exit(1))
     try:
         data[window_size]
     except IndexError:
@@ -209,7 +209,7 @@ def handle_result_column(result_column,
               + ' and is out of range. '
               + 'Available result columns are '
               + str(A))
-        sys.exit(4)
+        sys.exit(1)
     return result_column
 
 
