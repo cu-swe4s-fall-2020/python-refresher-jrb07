@@ -56,7 +56,9 @@ def main():
                         type=str,
                         required=True,
                         help='Name of the state to return values for.')
+    
     args = parser.parse_args()
+    
     get_rates(args.state)
 
 
