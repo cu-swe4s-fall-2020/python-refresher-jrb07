@@ -34,19 +34,18 @@ def linear_search(query, pairs):
             return value
 
 
-def get_columns(
-    file_name,
-    query_column,
-    query_value,
-    result_columns=[],
-    date_column=1):
+def get_columns(file_name,
+                query_column,
+                query_value,
+                result_columns=[],
+                date_column=1):
     '''
     This function leverages get column to create a list
     of results that includes data from multiple result columns.
     '''
     if result_columns == []:
         print('result column assigned as an empty array please re-assign')
-        raise ValueError(sys.exit(6))
+        raise ValueError(sys.exit(1))
     results = []
     for i in range(len(result_columns)):
         results.append(get_column(
@@ -59,12 +58,11 @@ def get_columns(
     return results
 
 
-def get_column(
-    file_name,
-    query_column,
-    query_value,
-    result_column=1,
-    date_column=1):
+def get_column(file_name,
+               query_column,
+               query_value,
+               result_column=1,
+               date_column=1):
     """
     Opens a CSV file and retrieves the desired column data based on
     the following parameters.
@@ -101,7 +99,7 @@ def get_column(
                 results.append(A[result_column])
             except ValueError:
                 print('Could not append result.')
-                sys.exit(6)
+                sys.exit(1)
 
             if date_column is not None:
                 if is_date(A[date_column]):
@@ -109,7 +107,7 @@ def get_column(
                 else:
                     f.close()
                     print('Date column was not assigned correctly.')
-                    raise ValueError(sys.exit(6))
+                    raise ValueError(sys.exit(1))
                 if _date is None:
                     _date = date
                     continue
@@ -119,15 +117,14 @@ def get_column(
                 else:
                     f.close()
                     print('Dates are out of order.')
-                    raise ValueError(sys.exit(6))
+                    raise ValueError(sys.exit(1))
 
     f.close()
 
     return results
 
 
-def open_file(
-    file_name):
+def open_file(file_name):
     '''
     Will try to open a file with the given file
     name and handles exceptions that may occur.
@@ -141,13 +138,12 @@ def open_file(
     except PermissionError:
         print(file_name
               + ' could not be accessed. Please try again.')
-        sys.exit(2)
+        sys.exit(1)
 
     return f
 
 
-def get_daily_count(
-    data):
+def get_daily_count(data):
     '''
     Returns an array of results that represent the change in
     value from index to index in the array.
@@ -169,9 +165,8 @@ def get_daily_count(
     return results
 
 
-def running_average(
-    data,
-    window_size=5):
+def running_average(data,
+                    window_size=5):
     '''
     Takes in an array of data then scans and averages the
     values of that array based on the provided window size.
@@ -180,7 +175,7 @@ def running_average(
     average = 0
     if data is None:
         print('No data passed to running_average')
-        raise ValueError(sys.exit(3))
+        raise ValueError(sys.exit(1))
     try:
         data[window_size]
     except IndexError:
@@ -195,9 +190,8 @@ def running_average(
     return results, window_size
 
 
-def handle_result_column(
-    result_column,
-    line):
+def handle_result_column(result_column,
+                         line):
     try:
         result_column = int(result_column)
         return result_column
@@ -215,13 +209,12 @@ def handle_result_column(
               + ' and is out of range. '
               + 'Available result columns are '
               + str(A))
-        sys.exit(4)
+        sys.exit(1)
     return result_column
 
 
-def is_date(
-    string,
-    fuzzy=False):
+def is_date(string,
+            fuzzy=False):
     '''
     Return whether the string can be interpreted as a date.
 

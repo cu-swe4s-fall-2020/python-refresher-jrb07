@@ -72,7 +72,7 @@ class TestMain(unittest.TestCase):
     def test_out_of_order_date(self):
         with self.assertRaises(SystemExit) as cm:
             mu.get_column('test_date_disorder.csv', 1, 'Boulder', 4, 0)
-        self.assertEqual(cm.exception.code, 6)
+        self.assertEqual(cm.exception.code, 1)
 
     def test_get_daily_count(self):
         self.assertIs(mu.get_daily_count(
@@ -93,7 +93,7 @@ class TestMain(unittest.TestCase):
     def test_get_running_average_error_mode(self):
         with self.assertRaises(SystemExit) as cm:
             mu.running_average(None)
-        self.assertEqual(cm.exception.code, 3)
+        self.assertEqual(cm.exception.code, 1)
 
     def test_get_running_average_random_mode(self):
         for i in range(10):
